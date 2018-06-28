@@ -1,0 +1,36 @@
+# Created 2018-06-28 Thu 21:55
+#+TITLE: README
+Easy Org Ensime (eoe) aims to make literate programming work again for
+Scala. With this mode you can define a custom build.sbt file, run
+=eoe-run= and use org-mode for literate programming in Scala.
+
+Let's try it together:
+
+1. Just evaluate =easy-org-ensime.el= in Emacs
+2. Define your build.sbt in the =eoe-dir= (by default it is "/tmp")
+
+   #+BEGIN_SRC scala
+    lazy val root = (project in file(".")).
+   settings(
+     inThisBuild(List(
+       libraryDependencies += "org.scalaz" %% "scalaz-core" % "7.2.25",
+       scalaVersion := "2.12.6",
+       version := "0.1.0-SNAPSHOT")),
+     name := "test"
+    )
+   #+END_SRC
+
+3. then let's run =(eoe-run)=
+4. finally let's try out Scalaz
+
+   #+BEGIN_SRC scala
+   import scalaz._
+   import std.option._, std.list._
+
+   Apply[Option].apply2(some(1), some(2))((a, b) => a + b)
+   #+END_SRC
+
+Note that many things need to be done to make this library cooler:
+check (and contribute please) to the issue tracker.
+
+Enjoy literate programming!
