@@ -6,12 +6,12 @@ Scala. With this mode you can define a custom build.sbt file, run
 
 * Installation Instructions
 1. Install dependencies.
-   1. Install org-mode using M-x package-install org-plus-contrib
-   2. Install ensime using M-x package-install ensime
-   3. Install sbt in your distribution: https://www.scala-sbt.org/1.0/docs/Setup.html
-   4. sbt-ensime plugin (???)
-   5. async.el (???)
-2. Evaluate =easy-org-ensime.el= in Emacs
+   1. Install org-mode using ~M-x package-install org-plus-contrib~
+   2. Install async using ~M-x package-install async~
+   3. Install ensime using ~M-x package-install ensime~
+   4. Install sbt in your distribution: https://www.scala-sbt.org/1.0/docs/Setup.html
+   5. Install the sbt-ensime plugin: http://ensime.github.io/build_tools/sbt/
+2. Add ~(load-file "<pathToEoe>/easy-org-ensime.el")~ to your init file.
 3. Define your build.sbt in the =eoe-dir= (by default it is "/tmp")
 
    #+BEGIN_SRC scala
@@ -29,7 +29,11 @@ Scala. With this mode you can define a custom build.sbt file, run
 5. Check org-mode can now call scala fragments by calling C-c C-c on the following block:
 
    #+BEGIN_SRC scala
-   1+1
+     import scalaz._
+     import std.option._, std.list._
+
+     Apply[Option].apply2(some(1), some(2))((a, b) => a + b)
+    
    #+END_SRC
 
 Note that many things need to be done to make this library cooler:
