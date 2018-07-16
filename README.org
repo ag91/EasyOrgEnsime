@@ -4,30 +4,36 @@ Easy Org Ensime (eoe) aims to make literate programming work again for
 Scala. With this mode you can define a custom build.sbt file, run
 =eoe-run= and use org-mode for literate programming in Scala.
 
-Let's try it together:
-
-1. Just evaluate =easy-org-ensime.el= in Emacs
-2. Define your build.sbt in the =eoe-dir= (by default it is "/tmp")
+* Installation Instructions
+1. Install dependencies.
+   1. Install org-mode using ~M-x package-install org-plus-contrib~
+   2. Install async using ~M-x package-install async~
+   3. Install ensime using ~M-x package-install ensime~
+   4. Install sbt in your distribution: https://www.scala-sbt.org/1.0/docs/Setup.html
+   5. Install the sbt-ensime plugin: http://ensime.github.io/build_tools/sbt/
+2. Add ~(load-file "<pathToEoe>/easy-org-ensime.el")~ to your init file.
+3. Define your build.sbt in the =eoe-dir= (by default it is "/tmp")
 
    #+BEGIN_SRC scala
-    lazy val root = (project in file(".")).
-   settings(
-     inThisBuild(List(
-       libraryDependencies += "org.scalaz" %% "scalaz-core" % "7.2.25",
-       scalaVersion := "2.12.6",
-       version := "0.1.0-SNAPSHOT")),
-     name := "test"
-    )
+     lazy val root = (project in file(".")).
+       settings(
+         inThisBuild(List(
+           libraryDependencies += "org.scalaz" %% "scalaz-core" % "7.2.25",
+           scalaVersion := "2.12.6",
+           version := "0.1.0-SNAPSHOT")),
+         name := "test"
+       )
    #+END_SRC
 
-3. then let's run =(eoe-run)=
-4. finally let's try out Scalaz
+4. Then run =(eoe-run)=
+5. Check org-mode can now call scala fragments by calling C-c C-c on the following block:
 
    #+BEGIN_SRC scala
-   import scalaz._
-   import std.option._, std.list._
+     import scalaz._
+     import std.option._, std.list._
 
-   Apply[Option].apply2(some(1), some(2))((a, b) => a + b)
+     Apply[Option].apply2(some(1), some(2))((a, b) => a + b)
+    
    #+END_SRC
 
 Note that many things need to be done to make this library cooler:
